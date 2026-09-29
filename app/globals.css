@@ -1,26 +1,203 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #08080a;
+  --foreground: #f4f1ea;
+  --muted: #b7b2a8;
+  --accent: #e4c9a8;
+  --line: rgb(244 241 234 / 0.14);
+  --surface: #121214;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--background);
+  --color-fg: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-behavior: auto;
+  color-scheme: dark;
+  background: var(--background);
+  overflow-x: clip;
+}
+
+.project-hero {
+  height: 100svh;
+}
+
+@media (min-width: 768px) {
+  .project-hero {
+    height: 148vh;
   }
+}
+
+.index-row {
+  scrollbar-width: none;
+}
+
+.index-row::-webkit-scrollbar {
+  display: none;
+}
+
+.work-strip {
+  padding-inline: max(1.5rem, calc((100% - 1200px) / 2 + 1.5rem));
+  scrollbar-width: thin;
+  scrollbar-color: rgb(244 241 234 / 0.28) transparent;
+}
+
+@media (min-width: 768px) {
+  .work-strip {
+    padding-inline: max(2.5rem, calc((100% - 1200px) / 2 + 2.5rem));
+  }
+}
+
+.work-strip::-webkit-scrollbar {
+  height: 6px;
+}
+
+.work-strip::-webkit-scrollbar-thumb {
+  background: rgb(244 241 234 / 0.28);
+  border-radius: 999px;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #e4c9a8;
+  color: #08080a;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.exp-panel {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .exp-panel {
+    grid-template-rows: 0fr;
+  }
+
+  .group:hover .exp-panel,
+  .group:focus-within .exp-panel {
+    grid-template-rows: 1fr;
+  }
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(26px);
+    opacity: 0;
+  }
+}
+
+.scroll-cue {
+  animation: scroll-cue 1.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes drift {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.drift {
+  animation: drift 72s linear infinite;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.85);
+  }
+}
+
+.pulse-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+.cine-rule {
+  display: block;
+  height: 1px;
+  margin: 0 0 2.75rem;
+  background: var(--line);
+  transform-origin: left center;
+}
+
+html.gsap-on .reveal {
+  animation: none;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    html:not(.gsap-on) .reveal {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 28%;
+    }
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .project-hero {
+    height: 100svh;
+  }
+
+  .scroll-cue,
+  .drift,
+  .pulse-dot,
+  .exp-panel,
+  .reveal,
+  .cine-rule {
+    animation: none;
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
 }

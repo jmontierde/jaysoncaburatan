@@ -1,0 +1,274 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#content"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "Jayson Caburatan" [ref=e5] [cursor=pointer]:
+        - /url: /#home
+      - navigation "Primary" [ref=e6]:
+        - link "Home" [ref=e7] [cursor=pointer]:
+          - /url: /#home
+        - link "About" [ref=e9] [cursor=pointer]:
+          - /url: /#about
+        - link "Work" [ref=e10] [cursor=pointer]:
+          - /url: /#work
+        - link "Experience" [ref=e11] [cursor=pointer]:
+          - /url: /#experience
+        - link "Stack" [ref=e12] [cursor=pointer]:
+          - /url: /#stack
+        - link "Contact" [ref=e13] [cursor=pointer]:
+          - /url: /#contact
+  - main [ref=e15]:
+    - generic [ref=e17]:
+      - paragraph [ref=e18]: Available for selected projects
+      - paragraph [ref=e20]: Jayson Caburatan
+      - heading "I build digital products that move." [level=1] [ref=e21]:
+        - generic [ref=e22]: I
+        - generic [ref=e24]: build
+        - generic [ref=e26]: digital
+        - generic [ref=e28]: products
+        - generic [ref=e30]: that
+        - generic [ref=e32]: move.
+      - paragraph [ref=e34]: Lead Full-Stack Web Developer crafting scalable web applications, AI-powered products, and modern digital experiences.
+      - generic [ref=e35]:
+        - link "View My Work" [ref=e37] [cursor=pointer]:
+          - /url: "#work"
+        - link "Let's Work Together" [ref=e39] [cursor=pointer]:
+          - /url: "#contact"
+      - link [ref=e43] [cursor=pointer]:
+        - /url: "#about"
+    - generic [ref=e46]:
+      - generic [ref=e47]:
+        - img "Portrait of Jayson Caburatan" [ref=e51]
+        - generic [ref=e52]:
+          - generic [ref=e53]:
+            - paragraph [ref=e54]: 01 — About
+            - heading "I turn ideas into products." [level=2] [ref=e55]
+          - generic [ref=e57]:
+            - paragraph [ref=e58]: I'm a Lead Full-Stack Web Developer with 4+ years of experience building software that ships. I work from architecture through interface, API, and the operational details that keep a system reliable.
+            - paragraph [ref=e59]: That work covers full-stack development, SaaS platforms, AI-powered applications, business management systems, payroll and HR, POS and restaurant systems, mobile applications, API integrations, and cloud-based products.
+            - paragraph [ref=e60]: Philippines · Remote
+      - generic [ref=e61]:
+        - paragraph [ref=e64]: 4+ Years Experience
+        - paragraph [ref=e67]: Multiple Production Applications
+        - paragraph [ref=e70]: Full-Stack + AI
+        - paragraph [ref=e73]: Remote / Global Collaboration
+    - generic [ref=e74]:
+      - generic [ref=e76]:
+        - paragraph [ref=e77]: 02 — Work
+        - heading "Selected Work" [level=2] [ref=e78]
+        - paragraph [ref=e79]: Scroll through the reel. Each project turns forward, then opens into the case study.
+      - generic [ref=e81]:
+        - generic:
+          - paragraph: 02 — Work
+          - generic:
+            - generic:
+              - generic [ref=e83]:
+                - paragraph [ref=e84]: Sellora. AI-powered eCommerce SaaS platform.
+                - generic [ref=e85]:
+                  - paragraph [ref=e86]: 01 / 07
+                  - link "Sellora" [ref=e87] [cursor=pointer]:
+                    - /url: /work/sellora
+                  - paragraph [ref=e88]: AI-powered eCommerce SaaS platform.
+                  - link "Open case study" [ref=e89] [cursor=pointer]:
+                    - /url: /work/sellora
+              - button "SpendWise" [ref=e93] [cursor=pointer]
+            - generic:
+              - button "Show Sellora" [ref=e95] [cursor=pointer]
+              - button "Show SpendWise" [ref=e97] [cursor=pointer]
+              - button "Show Worklyst" [ref=e99] [cursor=pointer]
+              - button "Show TutorAI" [ref=e101] [cursor=pointer]
+              - button "Show SentiAI" [ref=e103] [cursor=pointer]
+              - button "Show Delicia" [ref=e105] [cursor=pointer]
+              - button "Show Vaping Sidewalk" [ref=e107] [cursor=pointer]
+    - generic [ref=e110]:
+      - generic [ref=e111]:
+        - paragraph [ref=e112]: 03 — Experience
+        - heading "Systems I've been trusted to lead." [level=2] [ref=e113]
+      - list [ref=e116]:
+        - listitem [ref=e117]:
+          - article [ref=e119]:
+            - generic [ref=e121]:
+              - generic [ref=e122]:
+                - heading "Assistant Lead Web Application Developer" [level=3] [ref=e123]
+                - paragraph [ref=e124]: Alpha Supreme Services
+              - generic [ref=e125]:
+                - paragraph [ref=e126]: May 2026 — Present
+                - paragraph [ref=e127]: Remote
+            - paragraph [ref=e128]: Architecture, standards, and delivery for payroll, HR, and business management systems.
+            - list [ref=e129]:
+              - listitem [ref=e130]: Design scalable web application architecture and the development standards the team builds against.
+              - listitem [ref=e132]: Lead and mentor developers through planning, code reviews, hiring, and onboarding.
+              - listitem [ref=e134]: Build payroll, HR, and business management systems, including HRIS and point-of-sale workflows.
+              - listitem [ref=e136]: Collaborate with stakeholders to plan features and deliver them cleanly.
+              - listitem [ref=e138]: Improve application workflows and the experience of the people using them every day.
+        - listitem [ref=e140]:
+          - article [ref=e142]:
+            - generic [ref=e144]:
+              - generic [ref=e145]:
+                - heading "Frontend Developer" [level=3] [ref=e146]
+                - paragraph [ref=e147]: Tito Solutions
+              - generic [ref=e148]:
+                - paragraph [ref=e149]: Jan 2025 — Apr 2026
+                - paragraph [ref=e150]: Remote
+            - paragraph [ref=e151]: Production SaaS and a mobile restaurant ordering system.
+            - list [ref=e152]:
+              - listitem [ref=e153]: Maintained and enhanced production SaaS applications with Next.js, TypeScript, Supabase, and React Native.
+              - listitem [ref=e155]: Redesigned interfaces with Tailwind CSS and shadcn/ui to improve performance and usability.
+              - listitem [ref=e157]: Worked in Agile teams on sprint planning, code review, and continuous deployment.
+              - listitem [ref=e159]: Developed a mobile restaurant ordering system, including order flows and backend integration.
+        - listitem [ref=e161]:
+          - article [ref=e163]:
+            - generic [ref=e165]:
+              - generic [ref=e166]:
+                - heading "AI Software Engineer" [level=3] [ref=e167]
+                - paragraph [ref=e168]: Accelerated Fleet Services
+              - generic [ref=e169]:
+                - paragraph [ref=e170]: Sep 2025 — Feb 2026
+                - paragraph [ref=e171]: Remote
+            - paragraph [ref=e172]: Fleet management software and a voice AI copilot.
+            - list [ref=e173]:
+              - listitem [ref=e174]: Led frontend development for a fleet platform with Next.js, React, TypeScript, and Tailwind CSS.
+              - listitem [ref=e176]: Shipped service orders, inventory, and technician management with Node.js, Express, and PostgreSQL.
+              - listitem [ref=e178]: Built a voice AI copilot in React Native and improved client performance with Zustand and React Query.
+    - generic [ref=e181]:
+      - generic [ref=e183]:
+        - paragraph [ref=e184]: 04 — Stack
+        - heading "Tools in the systems I ship." [level=2] [ref=e185]
+        - paragraph [ref=e186]:
+          - generic [ref=e187]: React.
+          - text: The interface layer for the products I design and ship.
+      - generic [ref=e190]:
+        - button "React" [pressed] [ref=e191]
+        - button "Next.js" [ref=e192]
+        - button "TypeScript" [ref=e193]
+        - button "Node.js" [ref=e194]
+        - button "PostgreSQL" [ref=e195]
+        - button "Convex" [ref=e196]
+        - button "Supabase" [ref=e197]
+        - button "React Native" [ref=e198]
+        - button "Tailwind CSS" [ref=e199]
+        - button "Three.js" [ref=e200]
+        - button "OpenAI" [ref=e201]
+        - button "Stripe" [ref=e202]
+        - button "Clerk" [ref=e203]
+        - button "Vercel" [ref=e204]
+    - generic [ref=e206]:
+      - generic [ref=e207]:
+        - paragraph [ref=e208]: 05 — Approach
+        - heading "How I build" [level=2] [ref=e209]
+      - generic [ref=e210]:
+        - article [ref=e212]:
+          - paragraph [ref=e213]: "01"
+          - generic [ref=e214]:
+            - heading "Build for scale" [level=3] [ref=e215]
+            - paragraph [ref=e216]: Architecture that can grow with the product.
+        - article [ref=e218]:
+          - paragraph [ref=e219]: "02"
+          - generic [ref=e220]:
+            - heading "Keep it simple" [level=3] [ref=e221]
+            - paragraph [ref=e222]: Clean solutions over unnecessary complexity.
+        - article [ref=e224]:
+          - paragraph [ref=e225]: "03"
+          - generic [ref=e226]:
+            - heading "Ship with quality" [level=3] [ref=e227]
+            - paragraph [ref=e228]: Performance, accessibility, testing, and maintainability matter.
+        - article [ref=e230]:
+          - paragraph [ref=e231]: "04"
+          - generic [ref=e232]:
+            - heading "Use AI intelligently" [level=3] [ref=e233]
+            - paragraph [ref=e234]: AI accelerates development, but every generated solution is reviewed, tested, and validated.
+    - generic [ref=e236]:
+      - generic [ref=e237]:
+        - paragraph [ref=e238]: 06 — Engineering
+        - heading "AI is part of my workflow. Not a replacement for engineering." [level=2] [ref=e239]:
+          - text: AI is part of my workflow.
+          - generic [ref=e240]: Not a replacement for engineering.
+        - paragraph [ref=e241]: Models speed up exploration and drafting. They do not decide the architecture, skip review, or ship untested. ChatGPT, Claude, Claude Code, Codex, OpenAI APIs, and n8n are tools inside that loop — useful after a person has checked the work.
+      - list [ref=e243]:
+        - listitem [ref=e245]:
+          - paragraph [ref=e247]: "01"
+          - heading "Idea" [level=3] [ref=e248]
+          - paragraph [ref=e249]: Name the user, the job, and the constraint that actually matters.
+        - listitem [ref=e251]:
+          - paragraph [ref=e253]: "02"
+          - heading "AI-assisted development" [level=3] [ref=e254]
+          - paragraph [ref=e255]: Use models to explore options and draft faster. They do not own the design.
+        - listitem [ref=e257]:
+          - paragraph [ref=e259]: "03"
+          - heading "Review" [level=3] [ref=e260]
+          - paragraph [ref=e261]: Read the solution. Architecture, security, and edge cases stay a human decision.
+        - listitem [ref=e263]:
+          - paragraph [ref=e265]: "04"
+          - heading "Testing" [level=3] [ref=e266]
+          - paragraph [ref=e267]: Prove the behavior — including failure, performance, and access.
+        - listitem [ref=e269]:
+          - paragraph [ref=e271]: "05"
+          - heading "Validation" [level=3] [ref=e272]
+          - paragraph [ref=e273]: Check it against the product and the people who will maintain it.
+        - listitem [ref=e275]:
+          - paragraph [ref=e277]: "06"
+          - heading "Production" [level=3] [ref=e278]
+          - paragraph [ref=e279]: Ship something that can be operated, not just demonstrated.
+      - list [ref=e282]:
+        - listitem [ref=e283]: ChatGPT
+        - listitem [ref=e284]: Claude
+        - listitem [ref=e285]: Claude Code
+        - listitem [ref=e286]: Codex
+        - listitem [ref=e287]: OpenAI APIs
+        - listitem [ref=e288]: n8n
+    - generic [ref=e290]:
+      - generic [ref=e291]:
+        - paragraph [ref=e292]: 07 — Services
+        - heading "What I can build" [level=2] [ref=e293]
+      - generic [ref=e294]:
+        - article [ref=e296]:
+          - heading "Full-Stack Web Applications" [level=3] [ref=e301]
+          - paragraph [ref=e302]: Product surfaces and the APIs, data, and auth behind them.
+        - article [ref=e304]:
+          - heading "SaaS Products" [level=3] [ref=e315]
+          - paragraph [ref=e316]: Multi-tenant systems with roles, billing, and a path to grow.
+        - article [ref=e318]:
+          - heading "AI-Powered Applications" [level=3] [ref=e322]
+          - paragraph [ref=e323]: Models inside a real workflow, reviewed before they reach a user.
+        - article [ref=e325]:
+          - heading "Internal Business Tools" [level=3] [ref=e330]
+          - paragraph [ref=e331]: Software for payroll, HR, and the operations a company runs on.
+        - article [ref=e333]:
+          - heading "Dashboards & Admin Systems" [level=3] [ref=e339]
+          - paragraph [ref=e340]: Clear operational views for the people managing the work.
+        - article [ref=e342]:
+          - heading "API Integrations" [level=3] [ref=e347]
+          - paragraph [ref=e348]: Payments, messaging, maps, and the other systems a product depends on.
+        - article [ref=e350]:
+          - heading "Restaurant / Ordering Systems" [level=3] [ref=e354]
+          - paragraph [ref=e355]: Guest ordering and the kitchen and floor tools that fulfill it.
+        - article [ref=e357]:
+          - heading "Mobile Applications" [level=3] [ref=e360]
+          - paragraph [ref=e361]: React Native products that share a backend with the web.
+        - article [ref=e363]:
+          - heading "Automation Systems" [level=3] [ref=e368]
+          - paragraph [ref=e369]: Workflows that connect tools, with a dashboard a person can trust.
+    - generic [ref=e371]:
+      - generic [ref=e372]:
+        - heading "Have an idea worth building?" [level=2] [ref=e373]
+        - paragraph [ref=e374]: Let's turn it into something people can actually use.
+      - generic [ref=e375]:
+        - link "Start a Conversation" [ref=e377] [cursor=pointer]:
+          - /url: mailto:caburatanjayson92@gmail.com?subject=Project%20inquiry
+        - link "View Resume" [ref=e382] [cursor=pointer]:
+          - /url: /jayson-caburatan-resume.pdf
+      - list [ref=e383]:
+        - listitem [ref=e384]:
+          - link "Email" [ref=e385] [cursor=pointer]:
+            - /url: mailto:caburatanjayson92@gmail.com
+        - listitem [ref=e389]:
+          - link "GitHub" [ref=e390] [cursor=pointer]:
+            - /url: https://github.com/jmontierde
+        - listitem [ref=e393]:
+          - link "LinkedIn" [ref=e394] [cursor=pointer]:
+            - /url: https://www.linkedin.com/in/jayson-caburatan-035342268
+        - listitem [ref=e397]:
+          - link "Portfolio" [ref=e398] [cursor=pointer]:
+            - /url: https://jayson-caburatan-portfolio.vercel.app/
+      - paragraph [ref=e402]: © 2026 Jayson Caburatan
