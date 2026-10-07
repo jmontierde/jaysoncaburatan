@@ -147,6 +147,33 @@ body {
   animation: pulse-dot 2.4s ease-in-out infinite;
 }
 
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -8px, 0);
+  }
+}
+
+.hero-float {
+  animation: hero-float 8s ease-in-out infinite;
+}
+
+@keyframes hero-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.hero-progress {
+  animation: hero-progress 4.4s linear;
+}
+
 .cine-rule {
   display: block;
   height: 1px;
@@ -194,7 +221,9 @@ html.gsap-on .reveal {
   .pulse-dot,
   .exp-panel,
   .reveal,
-  .cine-rule {
+  .cine-rule,
+  .hero-float,
+  .hero-progress {
     animation: none;
     transition: none;
     opacity: 1;

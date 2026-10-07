@@ -35,7 +35,10 @@ export function ProjectStudy({
   const fromHandoff = useRef(false);
   const [planeReady, setPlaneReady] = useState(false);
   const mode = useVisualMode();
-  const webgl = mode === "full" && Boolean(project.image);
+  const portraitCover =
+    project.gallery.find((image) => image.src === project.image)?.orientation ===
+    "portrait";
+  const webgl = mode === "full" && Boolean(project.image) && !portraitCover;
   useStillMotion(scope, project.slug);
 
   const frames = project.gallery.filter((image) => image.src !== project.image);
@@ -77,7 +80,7 @@ export function ProjectStudy({
               pointer.current.y = 0;
             }}
           >
-            {project.image && (
+            {project.image && !portraitCover && (
               <Image
                 src={project.image}
                 alt={project.imageAlt ?? project.title}
@@ -86,6 +89,18 @@ export function ProjectStudy({
                 sizes="100vw"
                 className="object-cover object-top"
               />
+            )}
+            {project.image && portraitCover && (
+              <div className="absolute top-24 right-6 aspect-[9/19.5] h-[42svh] w-auto overflow-hidden rounded-[1.6rem] border border-white/15 shadow-[0_30px_80px_-28px_rgba(0,0,0,0.85)] md:top-1/2 md:right-[9%] md:h-[min(72svh,720px)] md:-translate-y-1/2 md:rounded-4xl">
+                <Image
+                  src={project.image}
+                  alt={project.imageAlt ?? project.title}
+                  fill
+                  priority
+                  sizes="(min-width: 768px) 320px, 42vw"
+                  className="object-contain"
+                />
+              </div>
             )}
             {webgl && project.image && (
               <WebGLBoundary fallback={null}>
@@ -194,18 +209,21 @@ export function ProjectStudy({
                   className="flex w-full flex-col items-center gap-10 px-6 py-12 lg:w-max lg:flex-row lg:gap-6 lg:px-[7vw] lg:py-0"
                 >
                   {frames.map((image) => (
-                    <figure key={image.src} className="w-[min(78vw,280px)] shrink-0">
-                      <div className="relative aspect-[9/16] overflow-hidden rounded-[1.6rem] border border-line bg-[#0c0c0e]">
+                    <figure key={image.src} className="w-[min(72vw,250px)] shrink-0">
+                      <div className="relative aspect-[9/19.5] overflow-hidden rounded-[1.6rem] border border-line bg-[#0c0c0e]">
                         <Image
                           src={image.src}
                           alt={image.alt}
                           fill
-                          sizes="280px"
-                          className="object-cover object-top"
+                          sizes="250px"
+                          className="object-contain"
                         />
                       </div>
-                      <figcaption className="mt-3 font-mono text-[11px] tracking-[0.16em] text-muted uppercase">
-                        {image.caption}
+                      <figcaption className="mt-3">
+                        <p className="font-mono text-[11px] tracking-[0.16em] text-muted uppercase">
+                          {image.caption}
+                        </p>
+                        <p className="mt-2 text-sm leading-relaxed text-muted">{image.detail}</p>
                       </figcaption>
                     </figure>
                   ))}
@@ -220,7 +238,7 @@ export function ProjectStudy({
                     data-frame
                     className={`relative overflow-hidden rounded-[1.35rem] border border-line bg-[#0c0c0e] md:rounded-[1.75rem] ${
                       image.orientation === "portrait"
-                        ? "mx-auto aspect-[9/16] w-[min(78vw,320px)]"
+                        ? "mx-auto aspect-[9/19.5] w-[min(72vw,280px)]"
                         : "aspect-[16/10]"
                     }`}
                   >
@@ -238,8 +256,13 @@ export function ProjectStudy({
                       />
                     </div>
                   </div>
-                  <figcaption className="mt-3 px-1 font-mono text-[11px] tracking-[0.16em] text-muted uppercase">
-                    {image.caption}
+                  <figcaption className="mt-3 px-1">
+                    <p className="font-mono text-[11px] tracking-[0.16em] text-muted uppercase">
+                      {image.caption}
+                    </p>
+                    <p className="mt-2 max-w-[62ch] text-sm leading-relaxed text-muted">
+                      {image.detail}
+                    </p>
                   </figcaption>
                 </figure>
               ))}

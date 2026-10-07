@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 const description =
-  "Lead Full-Stack Web Developer crafting scalable web applications, AI-powered products, and modern digital experiences.";
+  "Software Engineer and AI Engineer building scalable web applications, SaaS products, mobile apps, and AI-powered solutions from idea to production.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(

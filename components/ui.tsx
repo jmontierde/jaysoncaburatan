@@ -64,6 +64,42 @@ export function Magnetic({
   );
 }
 
+const fillSizes = {
+  md: "h-12 px-5 text-sm",
+  sm: "h-10 px-4 text-[13px]",
+} as const;
+
+export function FillLink({
+  href,
+  children,
+  className,
+  size = "md",
+  onClick,
+}: {
+  href: string;
+  children: ReactNode;
+  className?: string;
+  size?: keyof typeof fillSizes;
+  onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
+}) {
+  return (
+    <a
+      href={href}
+      onClick={onClick}
+      className={cn(
+        "group relative inline-flex items-center justify-center gap-2 rounded-full bg-fg font-medium whitespace-nowrap text-bg",
+        fillSizes[size],
+        className,
+      )}
+    >
+      <span aria-hidden className="absolute inset-0 overflow-hidden rounded-full">
+        <span className="absolute inset-0 origin-left scale-x-0 bg-accent transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 group-focus-visible:scale-x-100" />
+      </span>
+      <span className="relative z-10 inline-flex items-center gap-2">{children}</span>
+    </a>
+  );
+}
+
 export function SectionLabel({
   index,
   children,

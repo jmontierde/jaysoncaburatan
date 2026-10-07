@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Jayson Caburatan — Lead Full-Stack Web Developer";
+export const alt = "Jayson Caburatan — Software Engineer and AI Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -41,7 +41,7 @@ export default function OpenGraphImage() {
           I build digital products that move.
         </div>
         <div style={{ fontSize: 28, marginTop: 28, color: "#b7b2a8" }}>
-          Lead Full-Stack Web Developer
+          Software Engineer and AI Engineer
         </div>
       </div>
     ),

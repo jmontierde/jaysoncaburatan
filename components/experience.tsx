@@ -40,6 +40,16 @@ export function Experience() {
                         <p className="mt-1 text-muted">{item.location}</p>
                       </div>
                     </div>
+                    <ul className="mt-4 flex flex-wrap gap-2">
+                      {item.tech.map((name) => (
+                        <li
+                          key={name}
+                          className="rounded-full border border-line px-2.5 py-1 font-mono text-[11px] tracking-wide text-muted"
+                        >
+                          {name}
+                        </li>
+                      ))}
+                    </ul>
                     <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted md:text-base">
                       {item.summary}
                     </p>

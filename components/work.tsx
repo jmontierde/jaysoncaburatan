@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type RefObject } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
@@ -9,7 +9,7 @@ import { LayoutGroup, motion, useReducedMotion } from "motion/react";
 import { projects, type GalleryImage, type Project } from "@/lib/content";
 import { getLenis } from "@/components/smooth-scroll";
 import { Reveal, SectionLabel, cn } from "@/components/ui";
-import { ProjectLink } from "@/components/work/project-link";
+import { CaseOverlay } from "@/components/work/case-overlay";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,6 +27,7 @@ function framesOf(project: Project): GalleryImage[] {
       src: project.image,
       alt: project.imageAlt ?? project.title,
       caption: project.title,
+      detail: project.summary,
       orientation: "landscape",
     },
   ];
@@ -34,6 +35,8 @@ function framesOf(project: Project): GalleryImage[] {
 
 export function Work() {
   const [openSlug, setOpenSlug] = useState<string | null>(null);
+  const [caseSlug, setCaseSlug] = useState<string | null>(null);
+  const caseProject = projects.find((project) => project.slug === caseSlug);
 
   useEffect(() => {
     getLenis()?.resize();
@@ -45,7 +48,7 @@ export function Work() {
   }, [openSlug]);
 
   return (
-    <section id="work" className="scroll-mt-24 py-24 md:py-32">
+    <section id="work" className="scroll-mt-24 pt-8 pb-24 md:pt-10 md:pb-32">
       <div className="mx-auto w-full max-w-[1200px] px-6 md:px-10">
         <Reveal>
           <SectionLabel index="02">Work</SectionLabel>
@@ -70,9 +73,13 @@ export function Work() {
                 current === project.slug ? null : project.slug,
               )
             }
+            onOpenCase={() => setCaseSlug(project.slug)}
           />
         ))}
       </div>
+      {caseProject && (
+        <CaseOverlay project={caseProject} onClose={() => setCaseSlug(null)} />
+      )}
     </section>
   );
 }
@@ -81,14 +88,15 @@ function ProjectRow({
   project,
   open,
   onToggle,
+  onOpenCase,
 }: {
   project: Project;
   open: boolean;
   onToggle: () => void;
+  onOpenCase: () => void;
 }) {
   const frames = framesOf(project);
   const reduce = useReducedMotion();
-  const coverRef = useRef<HTMLDivElement>(null);
   const blurb = project.description[0] ?? project.summary;
   const panelId = `project-panel-${project.slug}`;
 
@@ -114,12 +122,12 @@ function ProjectRow({
             aria-expanded={open}
             aria-controls={panelId}
             onClick={onToggle}
-            className="grid w-full cursor-pointer grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-3 py-5 text-left min-[720px]:grid-cols-[minmax(0,1fr)_auto_auto] min-[720px]:gap-x-8 min-[720px]:py-6"
+            className="grid w-full cursor-pointer grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-3 py-5 text-left min-[720px]:grid-cols-[max-content_minmax(0,1fr)_auto] min-[720px]:gap-x-8 min-[720px]:py-6"
           >
-            <span className="text-[clamp(1.65rem,2.7vw,2.7rem)] leading-none font-medium tracking-[-0.045em] transition-colors duration-300 group-hover:text-white">
+            <span className="text-[clamp(1.65rem,2.7vw,2.7rem)] leading-none font-medium tracking-[-0.045em] transition-colors duration-300 group-hover:text-white min-[720px]:whitespace-nowrap">
               {project.title}
             </span>
-            <span className="col-start-1 row-start-2 min-[720px]:col-start-2 min-[720px]:row-start-1">
+            <span className="col-start-1 row-start-2 max-w-[34rem] min-[720px]:col-start-2 min-[720px]:row-start-1 min-[720px]:max-w-none min-[720px]:min-w-0">
               <TechTags tech={project.tech} />
             </span>
             <span className="col-start-2 row-start-1 w-14 text-right font-mono text-[13px] tracking-[0.16em] text-muted transition-colors duration-300 group-hover:text-fg min-[720px]:col-start-3">
@@ -159,16 +167,14 @@ function ProjectRow({
               <p className="max-w-xl text-sm leading-relaxed text-muted md:text-[15px]">
                 {blurb}
               </p>
-              <ProjectLink
-                href={`/work/${project.slug}`}
-                slug={project.slug}
-                src={frames[0]?.src ?? project.image ?? ""}
-                sourceRef={coverRef}
-                className="inline-flex min-h-11 shrink-0 items-center gap-2 self-start font-mono text-[11px] tracking-[0.18em] text-fg uppercase transition-colors hover:text-accent"
+              <button
+                type="button"
+                onClick={onOpenCase}
+                className="inline-flex min-h-11 shrink-0 cursor-pointer items-center gap-2 self-start font-mono text-[11px] tracking-[0.18em] text-fg uppercase transition-colors hover:text-accent"
               >
                 View case
                 <ArrowUpRight size={14} aria-hidden />
-              </ProjectLink>
+              </button>
             </motion.div>
           )}
         </div>
@@ -183,7 +189,6 @@ function ProjectRow({
                 slug={project.slug}
                 open
                 reduce={!!reduce}
-                coverRef={index === 0 ? coverRef : undefined}
               />
             ))}
           </div>
@@ -199,14 +204,12 @@ function Frame({
   slug,
   open,
   reduce,
-  coverRef,
 }: {
   frame: GalleryImage;
   index: number;
   slug: string;
   open: boolean;
   reduce: boolean;
-  coverRef?: RefObject<HTMLDivElement | null>;
 }) {
   const portrait = frame.orientation === "portrait";
   const hiddenThumb = !open && index >= PREVIEW_COUNT;
@@ -227,7 +230,6 @@ function Frame({
   return (
     <motion.div
       layoutId={reduce ? undefined : `${slug}-frame-${index}`}
-      ref={coverRef}
       transition={transition}
       className={cn(
         "overflow-hidden rounded-[3px] border border-white/10 bg-surface",
@@ -235,7 +237,7 @@ function Frame({
           ? cn(
               "relative shrink-0 snap-start",
               portrait
-                ? "h-[240px] w-[158px] sm:h-[320px] sm:w-[210px] md:h-[380px] md:w-[248px]"
+                ? "aspect-[9/19.5] h-[300px] w-auto sm:h-[420px] md:h-[520px]"
                 : "h-[240px] w-[78vw] max-w-[520px] sm:h-[320px] sm:w-[420px] md:h-[380px] md:w-[540px]",
             )
           : "absolute top-0",
@@ -264,7 +266,7 @@ function Frame({
               : "(max-width: 768px) 78vw, 540px"
             : "100px"
         }
-        className="object-cover object-top"
+        className={portrait && open ? "object-contain" : "object-cover object-top"}
         draggable={false}
       />
     </motion.div>
@@ -273,11 +275,11 @@ function Frame({
 
 function TechTags({ tech }: { tech: string[] }) {
   return (
-    <span className="flex flex-wrap gap-1.5">
-      {tech.slice(0, 3).map((tag) => (
+    <span className="flex w-full flex-wrap gap-1.5 min-[720px]:justify-end">
+      {tech.map((tag) => (
         <span
           key={tag}
-          className="rounded-full border border-line px-2.5 py-1 font-mono text-[10px] leading-none tracking-[0.14em] text-muted uppercase"
+          className="rounded-full border border-line px-2.5 py-1 font-mono text-[10px] leading-none tracking-[0.14em] whitespace-nowrap text-muted uppercase"
         >
           {tag}
         </span>

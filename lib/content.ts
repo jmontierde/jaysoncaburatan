@@ -1,9 +1,9 @@
 export const site = {
   name: "Jayson Caburatan",
-  role: "Lead Full-Stack Web Developer",
+  role: "Software Engineer and AI Engineer",
   email: "caburatanjayson92@gmail.com",
   github: "https://github.com/jmontierde",
-  linkedin: "https://www.linkedin.com/in/jayson-caburatan-035342268",
+  linkedin: "https://www.linkedin.com/in/jayson-caburatan",
   portfolio: "https://jayson-caburatan-portfolio.vercel.app/",
   resume: "/jayson-caburatan-resume.pdf",
   location: "Philippines · Remote",
@@ -11,11 +11,9 @@ export const site = {
 } as const;
 
 export const navItems = [
-  { id: "home", label: "Home" },
-  { id: "about", label: "About" },
   { id: "work", label: "Work" },
+  { id: "about", label: "About" },
   { id: "experience", label: "Experience" },
-  { id: "stack", label: "Stack" },
   { id: "contact", label: "Contact" },
 ] as const;
 
@@ -28,18 +26,17 @@ export const stats = [
 
 export const experiences = [
   {
-    role: "Assistant Lead Web Application Developer",
+    role: "Lead Software Engineer",
     company: "Alpha Supreme Services",
-    location: "Remote",
+    location: "San Francisco Bay Area · Remote",
     dates: "May 2026 — Present",
     summary:
-      "Architecture, standards, and delivery for payroll, HR, and business management systems.",
+      "Architecture, standards, and delivery for the web applications the team ships.",
+    tech: ["Next.js", "TypeScript", "Convex", "Tailwind CSS", "shadcn/ui"],
     points: [
-      "Design scalable web application architecture and the development standards the team builds against.",
-      "Lead and mentor developers through planning, code reviews, hiring, and onboarding.",
-      "Build payroll, HR, and business management systems, including HRIS and point-of-sale workflows.",
-      "Collaborate with stakeholders to plan features and deliver them cleanly.",
-      "Improve application workflows and the experience of the people using them every day.",
+      "Designed and maintained scalable web application architecture, system design, and development standards.",
+      "Led and mentored developers by assigning tasks, code reviews, and participating in hiring and onboarding.",
+      "Collaborated with stakeholders to plan, develop, and deliver high-quality web application features and solutions.",
     ],
   },
   {
@@ -47,24 +44,73 @@ export const experiences = [
     company: "Tito Solutions",
     location: "Remote",
     dates: "Jan 2025 — Apr 2026",
-    summary: "Production SaaS and a mobile restaurant ordering system.",
+    summary: "Production SaaS, and the GaniTable mobile ordering system.",
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "Zustand",
+      "React Native",
+      "Tailwind CSS",
+      "shadcn/ui",
+    ],
     points: [
-      "Maintained and enhanced production SaaS applications with Next.js, TypeScript, Supabase, and React Native.",
-      "Redesigned interfaces with Tailwind CSS and shadcn/ui to improve performance and usability.",
-      "Worked in Agile teams on sprint planning, code review, and continuous deployment.",
-      "Developed a mobile restaurant ordering system, including order flows and backend integration.",
+      "Maintained and enhanced a production-scale SaaS platform using Next.js, TypeScript, Supabase, and Zustand.",
+      "Revamped UI with Tailwind CSS and shadcn/ui, replacing MUI for better design and performance.",
+      "Collaborated using Agile methodologies with GitHub, Jira, and Vercel, contributing to sprint planning, code reviews, and continuous deployment.",
+      "Developed and maintained the GaniTable mobile ordering system using React Native, handling order flows, UI implementation, and integration with backend services.",
     ],
   },
   {
     role: "AI Software Engineer",
     company: "Accelerated Fleet Services",
-    location: "Remote",
+    location: "Dallas, Texas · Remote",
     dates: "Sep 2025 — Feb 2026",
-    summary: "Fleet management software and a voice AI copilot.",
+    summary: "A fleet management platform and a voice AI copilot.",
+    tech: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "React Native",
+      "PostgreSQL",
+    ],
     points: [
-      "Led frontend development for a fleet platform with Next.js, React, TypeScript, and Tailwind CSS.",
-      "Shipped service orders, inventory, and technician management with Node.js, Express, and PostgreSQL.",
-      "Built a voice AI copilot in React Native and improved client performance with Zustand and React Query.",
+      "Led frontend development using Next.js, React, TypeScript, Tailwind CSS, and shadcn/ui, building a responsive and scalable fleet management platform.",
+      "Collaborated with backend developers and clients, implementing features with Node.js, Express, and PostgreSQL, including service orders, inventory, and technician management.",
+      "Developed a Voice AI Copilot using React Native and improved performance using Zustand and React Query.",
+    ],
+  },
+  {
+    role: "Software Developer",
+    company: "Freelance · Web & Mobile",
+    location: "Remote",
+    dates: "May 2023 — Dec 2024",
+    summary:
+      "Custom web and mobile applications, from requirements through client handoff.",
+    tech: [
+      "React",
+      "Next.js",
+      "React Native",
+      "Node.js",
+      "Express",
+      "Tailwind CSS",
+    ],
+    points: [
+      "Designed and built custom web and mobile applications using React, Next.js, React Native, Node.js, Express, and Tailwind CSS, tailored to client needs.",
+      "Managed projects end-to-end, from requirements gathering to deployment and client handoff.",
+      "Delivered responsive, intuitive, and user-friendly interfaces across multiple projects.",
+    ],
+  },
+  {
+    role: "SAP ABAP Developer Intern",
+    company: "Accenture Philippines",
+    location: "Remote",
+    dates: "Internship",
+    summary: "Developing, testing, and maintaining SAP programs.",
+    tech: ["SAP ABAP"],
+    points: [
+      "Completed an internship as an SAP ABAP programmer, assisting in developing, testing, and maintaining SAP programs.",
     ],
   },
 ] as const;
@@ -73,6 +119,8 @@ export type GalleryImage = {
   src: string;
   alt: string;
   caption: string;
+  /** One sentence shown under the frame in the case panel. */
+  detail: string;
   orientation: "landscape" | "portrait";
 };
 
@@ -97,7 +145,8 @@ export const projects: Project[] = [
     slug: "sellora",
     index: "01",
     title: "Sellora",
-    summary: "AI-powered eCommerce SaaS platform.",
+    summary:
+      "An AI-powered store merchants can launch and grow, with copywriting, a chatbot, and live analytics beside the shop.",
     description: [
       "Sellora helps merchants launch and run an online store from one product. The storefront, catalog, orders, customers, and analytics sit next to AI tools for copy and support.",
       "I designed the product architecture and built the application with Next.js, Convex, and Clerk — from the merchant dashboard through the public shop.",
@@ -107,7 +156,7 @@ export const projects: Project[] = [
       "AI copywriting and a storefront chatbot",
       "Authenticated, multi-merchant SaaS on Convex and Clerk",
     ],
-    tech: ["Next.js", "Convex", "Clerk", "AI"],
+    tech: ["Next.js", "Convex", "Clerk", "Zustand", "Tailwind CSS", "Vercel"],
     image: "/work/sellora/cover.jpg",
     imageAlt: "Sellora merchant dashboard with revenue, orders, and products",
     liveUrl: "https://sellora-app.vercel.app",
@@ -117,42 +166,56 @@ export const projects: Project[] = [
         src: "/work/sellora/cover.jpg",
         alt: "Sellora dashboard overview from the previous portfolio",
         caption: "Merchant overview",
+        detail:
+          "Revenue, orders, and the products selling today, on the first screen a merchant sees. It is enough to tell, in a few seconds, whether the store had a good day.",
         orientation: "landscape",
       },
       {
         src: "/work/sellora/store.jpg",
         alt: "Sellora merchant storefront with product cards and cart",
         caption: "Public storefront",
+        detail:
+          "The shop customers browse, with the catalog, search, and a path through to checkout. Product cards, prices, and the cart sit together so a visit can become an order without a detour.",
         orientation: "landscape",
       },
       {
         src: "/work/sellora/dashboard.jpg",
         alt: "Sellora merchant dashboard",
         caption: "Merchant dashboard",
+        detail:
+          "The home a merchant returns to, with live orders and the current state of the store. Recent orders, top products, and the day's totals stay in one view.",
         orientation: "landscape",
       },
       {
         src: "/work/sellora/products.jpg",
         alt: "Sellora product management screen",
         caption: "Catalog",
+        detail:
+          "Products are added, edited, and organized here without leaving the dashboard. Price, stock, and status update in place, so the public shop stays in step with what the merchant just changed.",
         orientation: "landscape",
       },
       {
         src: "/work/sellora/orders.jpg",
         alt: "Sellora orders screen",
         caption: "Orders",
+        detail:
+          "Every order in one list, from the moment it is placed through fulfillment. A merchant can see who bought what, what is still pending, and what has already been completed.",
         orientation: "landscape",
       },
       {
         src: "/work/sellora/customers.jpg",
         alt: "Sellora customers screen",
         caption: "Customers",
+        detail:
+          "Who is buying, and the order history attached to each account. It is the record of repeat customers and the purchases behind them.",
         orientation: "landscape",
       },
       {
         src: "/work/sellora/analytics.jpg",
         alt: "Sellora analytics screen",
         caption: "Analytics",
+        detail:
+          "Revenue and product performance, so the next decision comes from the store itself. The view shows what is selling and how the shop is trending, beside the tools that draft copy and answer customers.",
         orientation: "landscape",
       },
     ],
@@ -161,7 +224,8 @@ export const projects: Project[] = [
     slug: "spendwise",
     index: "02",
     title: "SpendWise",
-    summary: "AI-powered expense tracking and financial insights platform.",
+    summary:
+      "An expense tracker for budgets, spending, and the habits behind them, on the web and on a phone.",
     description: [
       "SpendWise is a personal finance product for tracking spending, budgets, and savings, with insights that explain where the money goes.",
       "The same product runs on the web and on mobile. Convex keeps expenses, budgets, and accounts reactive. Clerk handles sign-in. AI turns the ledger into something a person can act on.",
@@ -171,7 +235,16 @@ export const projects: Project[] = [
       "Web and mobile clients on a shared backend",
       "AI insights grounded in the user’s own transactions",
     ],
-    tech: ["Next.js", "Convex", "Clerk", "AI"],
+    tech: [
+      "React",
+      "Redux",
+      "TypeScript",
+      "React Native",
+      "Convex",
+      "Clerk",
+      "OpenAI",
+      "Tailwind CSS",
+    ],
     image: "/work/spendwise/web.jpg",
     imageAlt: "SpendWise web application",
     liveUrl: "https://spend-wise-web-rho.vercel.app",
@@ -181,36 +254,48 @@ export const projects: Project[] = [
         src: "/work/spendwise/web.jpg",
         alt: "SpendWise web application",
         caption: "Web app",
+        detail:
+          "The month at a glance: what was spent, how the budget is tracking, and the latest charges. It is the same ledger as the phone, laid out for a wider screen.",
         orientation: "landscape",
       },
       {
         src: "/work/spendwise/dashboard.jpg",
         alt: "SpendWise mobile dashboard showing monthly spend and recent expenses",
         caption: "Mobile dashboard",
+        detail:
+          "The same month on a phone, with spend and recent expenses a tap away. A charge logged here shows up on the web dashboard without a second entry.",
         orientation: "portrait",
       },
       {
         src: "/work/spendwise/insights.jpg",
         alt: "SpendWise insights screen",
         caption: "Insights",
+        detail:
+          "The ledger turned into a short read on where the money actually went. Instead of another chart, it explains the pattern in the transactions already recorded.",
         orientation: "portrait",
       },
       {
         src: "/work/spendwise/budget.jpg",
         alt: "SpendWise budget overview",
         caption: "Budgets",
+        detail:
+          "Each category has a limit, and the screen shows how close it is to being spent. The point is to see the month slipping before it is already gone.",
         orientation: "portrait",
       },
       {
         src: "/work/spendwise/savings.jpg",
         alt: "SpendWise savings screen",
         caption: "Savings",
+        detail:
+          "Goals sit beside the spending, so saving stays part of the same picture. What is set aside and what is still left are visible together.",
         orientation: "portrait",
       },
       {
         src: "/work/spendwise/expense.jpg",
         alt: "SpendWise add expense screen",
         caption: "Add an expense",
+        detail:
+          "A charge is logged in a few fields and lands on both the phone and the web dashboard. Amount, category, and date are enough to keep the month accurate.",
         orientation: "portrait",
       },
     ],
@@ -219,7 +304,8 @@ export const projects: Project[] = [
     slug: "worklyst",
     index: "03",
     title: "Worklyst",
-    summary: "Multi-tenant SaaS platform.",
+    summary:
+      "A multi-tenant workspace for teams, projects, tasks, roles, and subscriptions, with each organization kept separate.",
     description: [
       "Worklyst is a workspace for teams that need projects, tasks, members, and billing kept inside a single organization — with every tenant isolated.",
       "Owners and admins get a live picture of delivery: project health, task status, membership, and subscription state. Clerk supplies organization identity. Convex keeps the workspace reactive.",
@@ -229,7 +315,18 @@ export const projects: Project[] = [
       "Role-based access and audit history",
       "Billing and workspace settings in the same product",
     ],
-    tech: ["Next.js", "Convex"],
+    tech: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Clerk",
+      "Convex",
+      "Stripe",
+      "Vercel",
+      "Vitest",
+      "Playwright",
+    ],
     image: "/work/worklyst/dashboard.jpg",
     imageAlt:
       "Worklyst organization dashboard with project progress and task health",
@@ -239,39 +336,110 @@ export const projects: Project[] = [
         src: "/work/worklyst/dashboard.jpg",
         alt: "Worklyst organization dashboard",
         caption: "Organization dashboard",
+        detail:
+          "Project health, open tasks, and the state of one workspace, kept separate from every other tenant. Owners see delivery before they open a single project.",
         orientation: "landscape",
       },
       {
         src: "/work/worklyst/projects.jpg",
         alt: "Worklyst projects screen",
         caption: "Projects",
+        detail:
+          "The work in flight for this organization, with progress visible before you open a project. Each project stays inside the tenant that owns it.",
         orientation: "landscape",
       },
       {
         src: "/work/worklyst/tasks.jpg",
         alt: "Worklyst tasks screen",
         caption: "Tasks",
+        detail:
+          "Status across the team, without another organization's work mixed in. What is open, in progress, and done belongs only to this workspace.",
         orientation: "landscape",
       },
       {
         src: "/work/worklyst/members.jpg",
         alt: "Worklyst members settings",
         caption: "Members",
+        detail:
+          "Who belongs to the workspace, and the role each person holds. Access follows that role, so members only see the work they are meant to.",
         orientation: "landscape",
       },
       {
         src: "/work/worklyst/billing.jpg",
         alt: "Worklyst billing settings",
         caption: "Billing",
+        detail:
+          "The plan and subscription, kept next to the work they pay for. Billing lives in the same workspace as the projects, not in a separate tool.",
         orientation: "landscape",
       },
     ],
   },
   {
-    slug: "tutorai",
+    slug: "chargy",
     index: "04",
+    title: "Chargy",
+    summary: "Mobile app for finding EV chargers and starting a session.",
+    description: [
+      "Chargy is for drivers who need a charger nearby and a way to start without a support call. The map and the station list show power, connector type, price, and which docks are free.",
+      "A session starts from the QR on the plug or a charger code. History keeps the month’s cost, energy, and CO2. The app is React Native with Expo. Accounts sit on Convex. The map and directions are Mapbox.",
+    ],
+    highlights: [
+      "Nearby stations on a map and in a list, with speed, connector, price, and dock status",
+      "Start a charge from a QR code or a charger code",
+      "Session history with spend, energy, and CO2",
+    ],
+    tech: ["React Native", "Expo", "Convex", "Mapbox"],
+    image: "/work/chargy/map.jpg",
+    imageAlt: "Chargy station screen for BGC High Street with live dock status",
+    gallery: [
+      {
+        src: "/work/chargy/map.jpg",
+        alt: "Chargy map with the BGC High Street station, dock types, and a prompt to scan a QR code",
+        caption: "Station",
+        detail:
+          "One charger up close: power, connector, price, and which docks are free. It is the screen for deciding whether this station is the one to use.",
+        orientation: "portrait",
+      },
+      {
+        src: "/work/chargy/stations.jpg",
+        alt: "Chargy station list sorted by distance, with power, connector, rating, and price",
+        caption: "Nearby stations",
+        detail:
+          "Stations sorted by distance, with the details needed to choose one. Speed, connector, rating, and price are visible before you drive there.",
+        orientation: "portrait",
+      },
+      {
+        src: "/work/chargy/history.jpg",
+        alt: "Chargy charging history with monthly spend, energy, CO2 saved, and past sessions",
+        caption: "History",
+        detail:
+          "The month's spend, energy, and CO2, plus the sessions behind those numbers. Each past charge is still there if you need to check it.",
+        orientation: "portrait",
+      },
+      {
+        src: "/work/chargy/scan.jpg",
+        alt: "Chargy scan screen aligned on a Shell Recharge QR code, with a charger code fallback",
+        caption: "Start a session",
+        detail:
+          "Scan the QR on the plug, or enter a charger code, to start charging. Either path begins the session without a call to support.",
+        orientation: "portrait",
+      },
+      {
+        src: "/work/chargy/profile.jpg",
+        alt: "Chargy profile with payment methods, charging history, CO2 saved, and appearance",
+        caption: "Profile",
+        detail:
+          "Payment methods, past sessions, and the preferences that travel with the driver. Appearance and history stay with the account, not with one phone.",
+        orientation: "portrait",
+      },
+    ],
+  },
+  {
+    slug: "tutorai",
+    index: "05",
     title: "TutorAI",
-    summary: "Learning platform with an AI voice companion.",
+    summary:
+      "A learning app with an AI voice companion that teaches, answers questions, and keeps a lesson interactive.",
     description: [
       "TutorAI is a learning product built around an AI voice companion that teaches, answers questions, and keeps a lesson interactive.",
       "Learners pick a companion, start a live session, and track progress. The app runs on Next.js with Supabase, PostgreSQL, and Vapi for the voice layer.",
@@ -281,49 +449,60 @@ export const projects: Project[] = [
       "Companion library and a personal learning journey",
       "Next.js, Supabase, and PostgreSQL",
     ],
-    tech: ["Next.js", "Supabase", "PostgreSQL", "Vapi"],
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "Vapi",
+      "Supabase",
+      "PostgreSQL",
+      "Tailwind CSS",
+      "Vercel",
+    ],
     image: "/work/tutorai/cover.jpg",
     imageAlt: "TutorAI homepage with AI companion cards",
     liveUrl: "https://tutor-ai-saas.vercel.app/",
     repoUrl: "https://github.com/jmontierde/teaching-saas-platform",
     gallery: [
       {
-        src: "/work/tutorai/cover.jpg",
-        alt: "TutorAI homepage introducing the AI companion",
-        caption: "Home",
-        orientation: "landscape",
-      },
-      {
         src: "/work/tutorai/home.jpg",
         alt: "TutorAI home screen",
         caption: "Product home",
+        detail:
+          "Where a learner starts, and the companions available to teach. The home screen is the door into a voice lesson rather than a catalog of articles.",
         orientation: "landscape",
       },
       {
         src: "/work/tutorai/library.jpg",
         alt: "TutorAI companion library",
         caption: "Companion library",
+        detail:
+          "Pick the tutor for the subject, and for the way they want to learn. Each companion is a different voice for the same lesson.",
         orientation: "landscape",
       },
       {
         src: "/work/tutorai/session.jpg",
         alt: "TutorAI live voice session",
         caption: "Live session",
+        detail:
+          "A voice lesson in progress, with the companion answering as it goes. The learner can ask a question out loud and hear the next step instead of reading a transcript.",
         orientation: "landscape",
       },
       {
         src: "/work/tutorai/journey.jpg",
         alt: "TutorAI learning journey",
         caption: "My journey",
+        detail:
+          "Progress over time, so the next session starts where the last one ended. The journey keeps the lessons already finished and the ones still ahead.",
         orientation: "landscape",
       },
     ],
   },
   {
     slug: "sentiai",
-    index: "05",
+    index: "06",
     title: "SentiAI",
-    summary: "Mental health companion for reflective conversation.",
+    summary:
+      "A companion for supportive conversation, so someone can reflect, name what they feel, and feel heard.",
     description: [
       "SentiAI is a companion for supportive conversation — a place to reflect, name what you’re feeling, and feel heard.",
       "The product is a Next.js app on the OpenAI API, with conversation history and model selection kept in one calm interface.",
@@ -333,7 +512,7 @@ export const projects: Project[] = [
       "History and model selection in the same session",
       "Next.js and the OpenAI API",
     ],
-    tech: ["Next.js", "OpenAI", "Tailwind CSS"],
+    tech: ["Next.js", "TypeScript", "OpenAI", "Tailwind CSS", "Vercel"],
     image: "/work/sentiai/cover.jpg",
     imageAlt: "SentiAI shown on a laptop and phone",
     liveUrl: "https://senti-app-teal.vercel.app/",
@@ -342,31 +521,39 @@ export const projects: Project[] = [
         src: "/work/sentiai/cover.jpg",
         alt: "SentiAI portfolio image with laptop and phone",
         caption: "Product",
+        detail:
+          "The companion on a laptop and a phone, built for a quiet conversation. The same thread is there whichever screen you open.",
         orientation: "portrait",
       },
       {
         src: "/work/sentiai/conversation.jpg",
         alt: "SentiAI conversation screen",
         caption: "Conversation",
+        detail:
+          "A place to name what you feel and be answered, without a form to fill in. The conversation stays supportive, and it stays in one calm screen.",
         orientation: "landscape",
       },
       {
         src: "/work/sentiai/history.jpg",
         alt: "SentiAI conversation history",
         caption: "History",
+        detail:
+          "Earlier conversations, kept so a thread can be picked up again. Nothing has to be restated from the start of the last session.",
         orientation: "landscape",
       },
       {
         src: "/work/sentiai/models.jpg",
         alt: "SentiAI model selection",
         caption: "Model selection",
+        detail:
+          "Choose the model for the session without leaving the conversation. The choice stays inside the same screen as the thread.",
         orientation: "landscape",
       },
     ],
   },
   {
     slug: "delicia",
-    index: "06",
+    index: "07",
     title: "Delicia",
     summary: "Recipe app for discovering and cooking dishes.",
     description: [
@@ -388,13 +575,15 @@ export const projects: Project[] = [
         src: "/work/delicia/cover.jpg",
         alt: "Delicia homepage with a food photograph and headline",
         caption: "Home",
+        detail:
+          "A place to find a dish and follow it through to the plate. The home screen is the start of that path, from the photograph to the recipe itself.",
         orientation: "landscape",
       },
     ],
   },
   {
     slug: "vaping-sidewalk",
-    index: "07",
+    index: "08",
     title: "Vaping Sidewalk",
     summary: "E-commerce site for browsing and buying vaping products.",
     description: [
@@ -415,6 +604,8 @@ export const projects: Project[] = [
         src: "/work/vaping/cover.jpg",
         alt: "Vaping Sidewalk e-commerce homepage",
         caption: "Storefront",
+        detail:
+          "The catalog, and the path from browsing a product to checkout. What is for sale, and how to buy it, are on the same storefront.",
         orientation: "landscape",
       },
     ],

@@ -1,180 +1,211 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useRef, useState, type MouseEvent } from "react";
 import { ArrowUpRight } from "lucide-react";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react";
 import { site } from "@/lib/content";
-import { motion, useReducedMotion } from "motion/react";
-import { Magnetic, buttonStyles } from "@/components/ui";
-import { WebGLBoundary } from "@/components/webgl-boundary";
-import { useVisualMode } from "@/components/use-visual-mode";
+import { FillLink, Magnetic, buttonStyles, cn } from "@/components/ui";
+import { HeroStage, heroShowcases } from "@/components/hero-stage";
 
-const HeroScene = dynamic(
-  () => import("@/components/scenes/hero-scene").then((mod) => mod.HeroScene),
-  { ssr: false },
-);
+const ease = [0.22, 1, 0.36, 1] as const;
 
-function HeroMark() {
-  return (
-    <svg
-      viewBox="0 0 360 360"
-      className="drift h-[min(68vw,420px)] w-[min(68vw,420px)] text-accent/80"
-      aria-hidden
-    >
-      <g fill="none" stroke="currentColor" strokeWidth="1">
-        <circle cx="180" cy="180" r="46" />
-        <circle cx="180" cy="180" r="92" opacity="0.55" />
-        <circle cx="180" cy="180" r="146" opacity="0.28" />
-        <path d="M180 34 L180 326 M34 180 L326 180 M78 78 L282 282 M282 78 L78 282" opacity="0.35" />
-        <path d="M180 88 L258 226 H102 Z" />
-      </g>
-      {Array.from({ length: 8 }).map((_, index) => {
-        const angle = (index / 8) * Math.PI * 2;
-        const x = 180 + Math.cos(angle) * 146;
-        const y = 180 + Math.sin(angle) * 146;
-        return <circle key={index} cx={x} cy={y} r="3" fill="currentColor" stroke="none" />;
-      })}
-    </svg>
-  );
-}
-
-const rise = {
-  duration: 0.8,
-  ease: [0.22, 1, 0.36, 1] as const,
-};
-
-function HeroTitle({ text }: { text: string }) {
+function RevealLine({
+  children,
+  delay,
+  className,
+}: {
+  children: string;
+  delay: number;
+  className?: string;
+}) {
   const reduce = useReducedMotion();
-  const words = text.split(" ");
 
   return (
-    <h1 className="max-w-[16ch] text-[clamp(3.1rem,7.4vw,6.6rem)] leading-[0.92] font-medium tracking-[-0.045em] text-balance">
-      {words.map((word, index) => (
-        <span
-          key={`${word}-${index}`}
-          className="inline-block overflow-hidden pb-[0.12em] align-bottom"
-        >
-          <motion.span
-            className="inline-block"
-            initial={reduce ? false : { y: "110%" }}
-            animate={{ y: "0%" }}
-            transition={{ ...rise, delay: reduce ? 0 : 0.08 + index * 0.045 }}
-          >
-            {word}
-            {index < words.length - 1 ? "\u00A0" : ""}
-          </motion.span>
-        </span>
-      ))}
-    </h1>
+    <span className="block overflow-hidden">
+      <motion.span
+        className={cn("block py-[0.04em] leading-[0.88]", className)}
+        initial={reduce ? false : { y: "112%" }}
+        animate={{ y: "0%" }}
+        transition={{ duration: 0.9, ease, delay: reduce ? 0 : delay }}
+      >
+        {children}
+      </motion.span>
+    </span>
   );
 }
 
 export function Hero() {
-  const mode = useVisualMode();
   const reduce = useReducedMotion();
-  const pointer = useRef({ x: 0, y: 0 });
-  const [ready, setReady] = useState(false);
-  const webgl = mode === "full" || mode === "simple";
+  const sectionRef = useRef<HTMLElement>(null);
+  const [index, setIndex] = useState(0);
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const springX = useSpring(pointerX, { stiffness: 70, damping: 18, mass: 0.55 });
+  const springY = useSpring(pointerY, { stiffness: 70, damping: 18, mass: 0.55 });
+  const glowX = useTransform(springX, (value) => value * 36);
+  const glowY = useTransform(springY, (value) => value * 24);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, -32]);
+  const stageY = useTransform(scrollYProgress, [0, 1], [0, -72]);
+  const stageScale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
+
+  const active = heroShowcases[index] ?? heroShowcases[0];
 
   function onMove(event: MouseEvent<HTMLElement>) {
+    if (reduce) return;
+    if (window.matchMedia("(pointer: coarse)").matches) return;
     const bounds = event.currentTarget.getBoundingClientRect();
-    pointer.current.x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
-    pointer.current.y = ((event.clientY - bounds.top) / bounds.height) * 2 - 1;
+    pointerX.set(((event.clientX - bounds.left) / bounds.width) * 2 - 1);
+    pointerY.set(((event.clientY - bounds.top) / bounds.height) * 2 - 1);
   }
 
   return (
     <section
+      ref={sectionRef}
       id="home"
-      className="relative min-h-[100svh] scroll-mt-24 overflow-hidden"
+      className="relative flex min-h-[100svh] scroll-mt-24 flex-col"
       onMouseMove={onMove}
+      onMouseLeave={() => {
+        pointerX.set(0);
+        pointerY.set(0);
+      }}
     >
-      <div data-hero-visual className="pointer-events-none absolute inset-0">
-        <div
-          className={`absolute inset-0 flex items-center justify-center transition-opacity duration-700 lg:justify-end lg:pr-[8%] ${
-            ready ? "opacity-0" : "opacity-100"
-          }`}
-        >
-          <HeroMark />
-        </div>
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute top-[18%] right-[8%] hidden size-[520px] rounded-full bg-[radial-gradient(circle,rgba(228,201,168,0.16),transparent_68%)] lg:block"
+        style={reduce ? undefined : { x: glowX, y: glowY }}
+      />
 
-        {webgl && (
-          <WebGLBoundary fallback={null}>
-            <div
-              className={`absolute inset-0 transition-opacity duration-700 lg:left-[18%] ${
-                ready ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              <HeroScene
-                detail={mode === "full" ? "full" : "simple"}
-                pointer={pointer}
-                onReady={() => setReady(true)}
+      <div className="mx-auto grid w-full max-w-[1200px] flex-1 items-center gap-10 px-6 pt-24 pb-8 md:px-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-8 lg:pt-28 lg:pb-6">
+        <motion.div style={reduce ? undefined : { y: copyY }}>
+          <motion.p
+            className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-1"
+            initial={reduce ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease, delay: reduce ? 0 : 0.12 }}
+          >
+            <span className="inline-flex items-center gap-2 text-[11px] tracking-[0.18em] text-muted uppercase">
+              <span className="pulse-dot size-1.5 rounded-full bg-accent" />
+              Available for any project
+            </span>
+            <span className="hidden h-3 w-px bg-line sm:block" aria-hidden />
+            <span className="text-[11px] tracking-[0.18em] text-muted uppercase">
+              {site.location}
+            </span>
+          </motion.p>
+
+          <h1 className="min-w-0">
+            <span className="flex gap-4 sm:gap-5">
+              <motion.span
+                aria-hidden
+                className="mt-2 mb-1 hidden w-px origin-top self-stretch bg-accent sm:block"
+                initial={reduce ? false : { scaleY: 0 }}
+                animate={{ scaleY: 1 }}
+                transition={{ duration: 0.8, ease, delay: reduce ? 0 : 0.2 }}
               />
-            </div>
-          </WebGLBoundary>
-        )}
-      </div>
+              <span className="block min-w-0 text-[clamp(2.65rem,5.4vw,5.15rem)] font-medium tracking-[-0.05em]">
+                <RevealLine delay={0.22}>Software</RevealLine>
+                <RevealLine delay={0.3}>Engineer</RevealLine>
+                <RevealLine delay={0.38}>and AI Engineer</RevealLine>
+              </span>
+            </span>
+            <span className="mt-5 block overflow-hidden sm:mt-6">
+              <motion.span
+                className="block max-w-[16em] text-[clamp(1.3rem,2.05vw,1.8rem)] leading-snug font-medium tracking-[-0.03em] text-balance"
+                initial={reduce ? false : { y: "110%" }}
+                animate={{ y: "0%" }}
+                transition={{ duration: 0.85, ease, delay: reduce ? 0 : 0.52 }}
+              >
+                Building digital products that solve real business problems.
+              </motion.span>
+            </span>
+          </h1>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[58%] bg-gradient-to-t from-bg via-bg/85 to-transparent" />
+          <motion.p
+            className="mt-5 max-w-[42ch] text-[15px] leading-relaxed text-muted sm:mt-6 sm:text-base md:text-[17px]"
+            initial={reduce ? false : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, ease, delay: reduce ? 0 : 0.68 }}
+          >
+            4+ years of experience building scalable web applications, SaaS
+            products, mobile apps, and AI-powered solutions from idea to
+            production.
+          </motion.p>
 
-      <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[1200px] flex-col justify-end px-6 pb-10 pt-28 md:px-10 md:pb-14">
-        <motion.p
-          className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-line bg-bg/60 px-3 py-1.5 text-xs text-muted backdrop-blur-sm"
-          initial={reduce ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...rise, delay: reduce ? 0 : 0.02 }}
-        >
-          <span className="pulse-dot size-1.5 rounded-full bg-accent" />
-          Available for selected projects
-        </motion.p>
-
-        <motion.p
-          className="mb-4 font-mono text-[11px] uppercase tracking-[0.22em] text-accent"
-          initial={reduce ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...rise, delay: reduce ? 0 : 0.08 }}
-        >
-          {site.name}
-        </motion.p>
-        <HeroTitle text="I build digital products that move." />
-        <motion.p
-          className="mt-6 max-w-xl text-base leading-relaxed text-muted md:text-lg"
-          initial={reduce ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...rise, delay: reduce ? 0 : 0.42 }}
-        >
-          Lead Full-Stack Web Developer crafting scalable web applications,
-          AI-powered products, and modern digital experiences.
-        </motion.p>
-
-        <motion.div
-          className="mt-8 flex flex-col gap-3 sm:flex-row"
-          initial={reduce ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...rise, delay: reduce ? 0 : 0.52 }}
-        >
-          <Magnetic>
-            <a href="#work" className={buttonStyles.primary}>
-              View My Work
-            </a>
-          </Magnetic>
-          <Magnetic>
-            <a href="#contact" className={buttonStyles.ghost}>
-              Let&apos;s Work Together
-              <ArrowUpRight size={16} />
-            </a>
-          </Magnetic>
+          <motion.div
+            className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row"
+            initial={reduce ? false : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease, delay: reduce ? 0 : 1.02 }}
+          >
+            <Magnetic>
+              <FillLink href="#work">
+                View My Work
+                <ArrowUpRight
+                  size={16}
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </FillLink>
+            </Magnetic>
+            <Magnetic>
+              <a href="#contact" className={cn(buttonStyles.ghost, "group")}>
+                Let&apos;s Talk
+                <ArrowUpRight
+                  size={16}
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </a>
+            </Magnetic>
+          </motion.div>
         </motion.div>
 
-        <a
-          href="#about"
-          className="mt-12 inline-flex items-center gap-3 text-[11px] tracking-[0.22em] text-muted uppercase"
-        >
-          <span className="relative h-10 w-px overflow-hidden bg-line">
-            <span className="scroll-cue absolute inset-x-0 top-0 h-3 bg-accent" />
-          </span>
-          Scroll
-        </a>
+        <motion.div style={reduce ? undefined : { y: stageY, scale: stageScale }}>
+          <HeroStage
+            index={index}
+            onChange={setIndex}
+            pointerX={springX}
+            pointerY={springY}
+          />
+        </motion.div>
       </div>
+
+      <motion.div
+        initial={reduce ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, ease, delay: reduce ? 0 : 1.16 }}
+      >
+        <a
+          href="#work"
+          className="group mx-auto flex w-full max-w-[1200px] items-center justify-between gap-4 border-t border-line px-6 py-4 md:px-10"
+        >
+          <span className="flex min-w-0 items-center gap-3 sm:gap-4">
+            <span className="shrink-0 font-mono text-[11px] tracking-[0.2em] text-accent uppercase">
+              Selected work
+            </span>
+            <span className="hidden h-px w-8 bg-line sm:block" aria-hidden />
+            <span className="truncate text-sm text-muted transition-colors duration-300 group-hover:text-fg">
+              {active.title}
+            </span>
+          </span>
+          <span className="inline-flex shrink-0 items-center gap-3 text-[11px] tracking-[0.2em] text-muted uppercase">
+            <span className="relative h-8 w-px overflow-hidden bg-line" aria-hidden>
+              <span className="scroll-cue absolute inset-x-0 top-0 h-3 bg-accent" />
+            </span>
+            Scroll
+          </span>
+        </a>
+      </motion.div>
     </section>
   );
 }
