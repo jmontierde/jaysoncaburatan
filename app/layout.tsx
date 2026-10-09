@@ -5,6 +5,7 @@ import { Nav } from "@/components/nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { TransitionLayer } from "@/components/work/transition-layer";
 import { site } from "@/lib/content";
+import { Analytics } from "@vercel/analytics/next";
 
 const instrument = Instrument_Sans({
   subsets: ["latin"],
@@ -84,6 +85,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SmoothScroll />
         {children}
         <TransitionLayer />
+        <Analytics />
       </body>
     </html>
   );
